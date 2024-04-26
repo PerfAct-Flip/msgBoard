@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Submit Text</title>
+    <script>
+        async function submitText() {
+            const text = document.getElementById('userText').value;
+
+            try {
+                const response = await fetch('http://localhost:3000/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ text }),
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    alert(data.message);
+                } else {
+                    alert(`Error: ${data.error}`);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Msg Board</h1>
+    <input type="text" id="userText" placeholder="Enter msg here">
+    <button onclick="submitText()">Submit</button>
+
+
+    <!-- <script src="app.js"></script> --> 
+</body>
+</html>
